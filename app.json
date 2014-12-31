@@ -1,7 +1,7 @@
 {
   "name": "Film Actor Search App",
   "description": "Search tools for finding films by actors",
-  //"repository": "https://github.com/heroku/node-js-getting-started",
+  "repository": "https://git.heroku.com/film-actor-search.git",
   //"logo": "http://node-js-sample.herokuapp.com/node.svg",
   //"keywords": ["node", "express", "static"]
 }
