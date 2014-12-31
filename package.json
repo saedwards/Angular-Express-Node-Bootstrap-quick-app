@@ -1,0 +1,19 @@
+{
+  "name": "film-actor-search",
+  "version": "0.0.1",
+  "description": "Search tools for finding films by actors",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "0.10.x"
+  },
+  "dependencies": {
+    "express": "^4.10.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://git.heroku.com/film-actor-search.git"
+  }
+}
