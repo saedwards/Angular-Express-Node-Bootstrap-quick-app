@@ -10,10 +10,18 @@
     "node": "0.10.x"
   },
   "dependencies": {
-    "express": "^4.10.6"
+    "del": "^1.1.1",
+    "express": "^4.10.6",
+    "gulp": "^3.8.10"
   },
   "repository": {
     "type": "git",
     "url": "https://git.heroku.com/film-actor-search.git"
+  },
+  "devDependencies": {
+    "gulp-concat": "^2.4.3",
+    "gulp-less": "^2.0.1",
+    "gulp-uglify": "^1.0.2",
+    "less-plugin-clean-css": "^1.4.0"
   }
 }
