@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <title>Film Actor Search</title>
+    <meta name="viewport" content="width=device-width"/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="dist/main.css"/>
+
+</head>
+<body data-ng-app="filmActorSearch" data-ng-controller="SearchFilms" data-ng-class="{withImage: backdropImage}">
+
+    <section>
+
+        <div class="backdropImage">
+            <img data-ng-show="backdropImage" data-ng-src="{{backdropImage}}" />
+        </div>
+
+        <div class="container">
+
+            <h1 class="searchTitle">
+                Search Films
+                <small>by Actor name</small>
+            </h1>
+
+            <div class="searchPerson">
+                <input type="text" data-ng-model="searchTerm" />
+            </div>
+
+            <ul class="personResults" data-ng-show="personResults.length">
+                <li data-ng-repeat="result in personResults">
+                    <button data-ng-click="chooseActor(result.id, result.profile_path)">
+                        {{result.name}}<br />
+                        <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
+                    </button>
+                </li>
+            </ul>
+
+            <div class="row">
+                <div data-ng-show="profileImage" class="col-sm-3">
+                    <div class="profileImage">
+                        <img data-ng-src="{{profileImage}}" class="img-responsive" />
+                    </div>
+                </div>
+
+                <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
+                    <ul>
+                        <li data-ng-repeat="movie in movies">
+                            <h1>{{movie.title}} <small class="releaseDate">{{movie.release_date | date: 'MMMM d yyyy'}}</small></h1>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+
+    <script src="dist/site.min.js"></script>
+
+</body>
+</html>
