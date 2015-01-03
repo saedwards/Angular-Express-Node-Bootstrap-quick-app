@@ -61,7 +61,7 @@
 
 					var request = $http({
 						method: "get",
-						url: "http://api.themoviedb.org/3/search/person?api_key=" + key + "&query=" + term
+						url: window.location.protocol + "//api.themoviedb.org/3/search/person?api_key=" + key + "&query=" + term
 					});
 
 					return ( request.then(handleSuccess, handleError) );
@@ -102,7 +102,7 @@
 
 					var request = $http({
 						method: "get",
-						url: "http://api.themoviedb.org/3/discover/movie?api_key=" + key + "&with_cast=" + personId
+						url: window.location.protocol + "//api.themoviedb.org/3/discover/movie?api_key=" + key + "&with_cast=" + personId
 					});
 
 					return ( request.then(handleSuccess, handleError) );
