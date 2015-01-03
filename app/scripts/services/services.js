@@ -17,7 +17,7 @@
 
 					var request = $http({
 						method: "get",
-						url: "http://api.themoviedb.org/3/configuration?api_key=" + key
+						url: window.location.protocol + "//api.themoviedb.org/3/configuration?api_key=" + key
 					});
 
 					return ( request.then(handleSuccess, handleError) );
