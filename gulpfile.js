@@ -15,7 +15,8 @@ var gulp = require('gulp'),
 
 var paths = {
 	scripts: ['app/scripts/**/*.js'],
-	styles: ['app/styles/less/**/*.less']
+	styles: ['app/styles/less/**/*.less'],
+	indexFile: ['app/index.html']
 };
 
 
@@ -30,7 +31,7 @@ gulp.task('buildJS', ['clean'], function() {
 
 	return gulp.src(paths.scripts)
 		.pipe(concat('site.min.js'))
-		.pipe(uglify())
+		//.pipe(uglify())
 		.pipe(gulp.dest('public/dist'));
 
 });
@@ -59,6 +60,7 @@ gulp.task('watch', function() {
 
 	gulp.watch(paths.scripts, ['buildJS']);
 	gulp.watch(paths.styles, ['buildCSS']);
+	gulp.watch(paths.indexFile, ['compileIndex']);
 
 });
 

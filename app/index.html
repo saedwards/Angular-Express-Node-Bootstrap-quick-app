@@ -8,13 +8,40 @@
     <link rel="stylesheet" href="dist/main.css"/>
 
 </head>
-<body ng-app="filmActorSearch">
+<body data-ng-app="filmActorSearch">
 
-<div class="container" ng-view></div>
+    <section class="container" data-ng-controller="SearchFilms">
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+        <h1>
+            Search Films
+            <small>by Actor name</small>
+        </h1>
 
-<script src="dist/site.min.js"></script>
+        <input type="text" data-ng-model="searchTerm" />
+
+        <ul class="personResults" data-ng-show="personResults.length">
+            <li data-ng-repeat="result in personResults">
+                <button data-ng-click="chooseActor(result.id)">
+                    {{result.name}}<br />
+                    <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
+                </button>
+            </li>
+        </ul>
+
+        <div class="movies">
+            <ul>
+                <li data-ng-repeat="movie in movies">
+                    <h1>{{movie.title}}</h1>
+                    <span>{{movie.release_date | date: 'MMMM d yyyy'}}</span>
+                </li>
+            </ul>
+        </div>
+
+    </section>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+
+    <script src="dist/site.min.js"></script>
 
 </body>
 </html>
