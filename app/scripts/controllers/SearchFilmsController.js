@@ -1,24 +1,22 @@
-(function (app) {
+(function (app, angular) {
 
-	app.controller('SearchFilms', ['$scope', 'personSearch', 'moviesWithCast', 'movieDBConfig',
-		function($scope, personSearch, moviesWithCast, movieDBConfig) {
+	app.controller('SearchFilms', ['$scope', 'personSearch', 'moviesWithCast', 'movieDBConfig', '$timeout',
+		function($scope, personSearch, moviesWithCast, movieDBConfig, $timeout) {
 
 			var keyFireLength = 4,
-				movieConfig;
+				movieConfig,
+				chosenName,
+				firstLoadResults = true;
 
 			movieDBConfig.getConfig().then(function (res) {
 
 				movieConfig = res;
 
-				console.log(movieConfig);
-
 			});
-
-			$scope.searchTerm = 'Bill Murray';
 
 			$scope.$watch("searchTerm", function (newValue) {
 
-				if(newValue.length > keyFireLength) {
+				if(newValue.length > keyFireLength && $scope.searchTerm !== chosenName) {
 
 					loadPersonSearchData($scope.searchTerm);
 
@@ -47,12 +45,26 @@
 
 			};
 
-			$scope.chooseActor = function (personId, profilePath) {
+			$scope.chooseActor = function (personId, profilePath, name) {
 
 				$scope.personResults = [];
 				loadPersonMovies(personId);
 
+				chosenName = name;
+				$scope.searchTerm = name;
+
 				$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
+
+			};
+
+			$scope.cancelPerson = function () {
+
+				$scope.movies = [];
+				$scope.searchTerm = '';
+				$scope.profileImage = null;
+				$scope.backdropImage = null;
+
+				$('.searchPersonControl').focus();
 
 			};
 
@@ -62,7 +74,7 @@
 
 			};
 
-			function loadPersonSearchData(term) {
+			function loadPersonSearchData(term, cb) {
 
 				/**
 				 * Stubbing for CSS dev (would usually be in Jasmine unit test)
@@ -101,6 +113,10 @@
 				personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
+
+						if(cb) {
+							cb();
+						}
 					});
 
 			};
@@ -140,15 +156,22 @@
 
 				moviesWithCast.getResults(personId)
 					.then(function (response) {
-						console.log(response);
-
 						applyMovieData(response);
 					});
 
 			};
 
-			loadPersonSearchData($scope.searchTerm);
+			/**
+			 * Choose default profile.
+			 */
+			/*$scope.load = function () {
+
+				$scope.searchTerm = 'Bill Murray';
+
+				loadPersonSearchData($scope.searchTerm);
+
+			};*/
 
 		}]);
 
-}(app));
+}(app, angular));
