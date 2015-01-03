@@ -1,5 +1,130 @@
 * {
+
 	padding : 0;
 	margin : 0;
+	box-sizing : border-box;
+
 }
 
+.withImage {
+	background-color : #000;
+}
+
+.backdropImage {
+	position : absolute;
+	text-align : center;
+}
+
+.container {
+
+	position : relative;
+
+	.searchTitle {
+		position : relative;
+		margin-top : 150px;
+		padding : 20px 10px;
+		font-size : 30px;
+		color : #cc0066;
+		background-color : #fff;
+		opacity : 0.8;
+	}
+
+	.searchPerson {
+
+		input {
+			padding : 10px;
+			width : 100%;
+			font-size : 20px;
+			border-radius : 3px;
+			border : 1px solid #aaa;
+		}
+	}
+
+	.personResults {
+		list-style-type : none;
+
+		li + li {
+			border-top : 1px solid #69c0e0;
+		}
+
+		button {
+			width : 100%;
+			padding : 10px;
+			text-align : left;
+			color : #fff;
+			font-size : 15px;
+			background-color : #0098d0;
+			border : none;
+		}
+	}
+
+	.profileImage {
+		margin-top : 20px;
+		padding : 10px;
+		background-color : #fff;
+		border-radius : 5px;
+
+		img {
+			border-radius : 5px;
+		}
+	}
+
+	.movies {
+		margin-top : 20px;
+
+		ul {
+			list-style-type : none;
+
+			h1 {
+				margin : 10px 0 ;
+				font-weight : normal;
+				font-size : 25px;
+			}
+
+			.releaseDate {
+				float : right;
+				line-height : 27px;
+			}
+
+			li {
+				padding : 15px;
+				background-color : #fff;
+
+				+ li {
+					border-top : 3px dotted #cc0066;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+@media(max-width: 767px) {
+
+	.container {
+
+		.profileImage {
+			display : none;
+		}
+
+	}
+
+}
+
+@media(min-width: 768px) {
+
+	.container {
+
+		.personResults {
+			z-index : 10;
+			position: absolute;
+			left: 15px;
+			right: 15px;
+		}
+
+	}
+
+}

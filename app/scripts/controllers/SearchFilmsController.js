@@ -1,11 +1,18 @@
 (function (app) {
 
-	app.controller('SearchFilms', ['$scope', 'personSearch', 'moviesWithCast',
-		function($scope, personSearch, moviesWithCast) {
+	app.controller('SearchFilms', ['$scope', 'personSearch', 'moviesWithCast', 'movieDBConfig',
+		function($scope, personSearch, moviesWithCast, movieDBConfig) {
 
-			var keyFireLength = 4;
+			var keyFireLength = 4,
+				movieConfig;
 
-			personSearch.getResults();
+			movieDBConfig.getConfig().then(function (res) {
+
+				movieConfig = res;
+
+				console.log(movieConfig);
+
+			});
 
 			$scope.searchTerm = 'Bill Murray';
 
@@ -25,15 +32,13 @@
 					return;
 				}
 
-				var str,
+				var str = '',
 					arrLen = arr.length;
 
-				str = arr[0].title;
-
-				for(var i = 1; i < arrLen; i++) {
+				for(var i = 0; i < arrLen; i++) {
 
 					if(arr[i].title) {
-						str += ', ' + arr[i].title;
+						str += str ? ', ' + arr[i].title : arr[i].title;
 					}
 
 				}
@@ -42,16 +47,16 @@
 
 			};
 
-			$scope.chooseActor = function (personId) {
+			$scope.chooseActor = function (personId, profilePath) {
 
-				console.log(personId);
+				$scope.personResults = [];
 				loadPersonMovies(personId);
+
+				$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
 
 			};
 
 			function applyPersonSearchData(data) {
-
-				console.log('here');
 
 				$scope.personResults = data.results || [];
 
@@ -59,7 +64,10 @@
 
 			function loadPersonSearchData(term) {
 
-				applyPersonSearchData({
+				/**
+				 * Stubbing for CSS dev (would usually be in Jasmine unit test)
+				 */
+				/*applyPersonSearchData({
 
 					results: [
 						{
@@ -88,22 +96,47 @@
 						}
 					]
 
-				});
+				});*/
 
-				/*personSearch.getResults(term)
+				personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
-					});*/
+					});
 
 			};
 
 			function applyMovieData (data) {
 
+				var backdropPath;
+
 				$scope.movies = data.results || [];
+
+				if(data.results.length && typeof data.results[0].backdrop_path !== 'undefined') {
+					backdropPath = data.results[0].backdrop_path;
+				}
+
+				$scope.backdropImage = backdropPath ? movieConfig.images.base_url + movieConfig.images.backdrop_sizes[2] + backdropPath : null;
 
 			};
 
 			function loadPersonMovies (personId) {
+
+				/*applyMovieData({
+					results: [
+						{
+							'title': 'Dumb and Dumber To',
+							'release_date': '2014-11-14'
+						},
+						{
+							'title': 'Groundhog Day',
+							'release_date': '1993-02-11'
+						},
+						{
+							'title': 'Another',
+							'release_date': '1993-02-11'
+						}
+					]
+				});*/
 
 				moviesWithCast.getResults(personId)
 					.then(function (response) {

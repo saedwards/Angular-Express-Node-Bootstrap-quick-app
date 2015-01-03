@@ -11,4 +11,9 @@ var app = angular.module('filmActorSearch', ['services'])
 
 		moviesWithCastProvider.setKey(moviesDBAPIKey);
 
+	}])
+	.config(["movieDBConfigProvider", "moviesDBAPIKey", function (movieDBConfigProvider, moviesDBAPIKey) {
+
+		movieDBConfigProvider.setKey(moviesDBAPIKey);
+
 	}]);

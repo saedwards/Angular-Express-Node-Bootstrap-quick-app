@@ -1,6 +1,44 @@
 (function (angular) {
 
 	angular.module("services", [])
+		.provider("movieDBConfig", (function () {
+
+			var key = '';
+
+			this.setKey = function (string) {
+
+				key = string;
+
+			};
+
+			this.$get = ['$http', function ($http) {
+
+				function getConfig() {
+
+					var request = $http({
+						method: "get",
+						url: "http://api.themoviedb.org/3/configuration?api_key=" + key
+					});
+
+					return ( request.then(handleSuccess, handleError) );
+
+				};
+
+				function handleSuccess(response) {
+					return ( response.data );
+				};
+
+				function handleError(response) {
+
+				};
+
+				return {
+					getConfig: getConfig
+				};
+
+			}];
+
+		}))
 		.provider("personSearch", [function () {
 
 			var key = '',
@@ -9,8 +47,6 @@
 			this.setKey = function (string) {
 
 				key = string;
-
-				console.log(key);
 
 			};
 
@@ -49,14 +85,11 @@
 		}])
 		.provider("moviesWithCast", [function () {
 
-			var key = '',
-				currentPerson = '';
+			var key = '';
 
 			this.setKey = function (string) {
 
 				key = string;
-
-				console.log(key);
 
 			};
 
@@ -64,8 +97,6 @@
 
 				function getResults(personId) {
 					console.log(personId);
-
-					currentPerson = personId;
 
 					//http://api.themoviedb.org/3/discover/movie
 
