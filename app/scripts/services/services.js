@@ -20,16 +20,12 @@
 						url: window.location.protocol + "//api.themoviedb.org/3/configuration?api_key=" + key
 					});
 
-					return ( request.then(handleSuccess, handleError) );
+					return request.then(handleSuccess);
 
 				};
 
 				function handleSuccess(response) {
 					return ( response.data );
-				};
-
-				function handleError(response) {
-
 				};
 
 				return {
@@ -53,7 +49,6 @@
 			this.$get = ['$http', function ($http) {
 
 				function getResults(term) {
-					console.log(term);
 
 					currentPerson = term;
 
@@ -64,16 +59,12 @@
 						url: window.location.protocol + "//api.themoviedb.org/3/search/person?api_key=" + key + "&query=" + term
 					});
 
-					return ( request.then(handleSuccess, handleError) );
+					return ( request.then(handleSuccess) );
 
 				};
 
 				function handleSuccess(response) {
 					return ( response.data );
-				};
-
-				function handleError(response) {
-
 				};
 
 				return {
@@ -96,7 +87,6 @@
 			this.$get = ['$http', function ($http) {
 
 				function getResults(personId) {
-					console.log(personId);
 
 					//http://api.themoviedb.org/3/discover/movie
 
@@ -105,16 +95,12 @@
 						url: window.location.protocol + "//api.themoviedb.org/3/discover/movie?api_key=" + key + "&with_cast=" + personId
 					});
 
-					return ( request.then(handleSuccess, handleError) );
+					return ( request.then(handleSuccess) );
 
 				};
 
 				function handleSuccess(response) {
 					return ( response.data );
-				};
-
-				function handleError(response) {
-
 				};
 
 				return {

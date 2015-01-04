@@ -13,6 +13,11 @@
 
     <section>
 
+        <div data-ng-show="error" class="error ng-hide">
+            <button class="close" data-ng-click="closeError()">X</button>
+            {{error.message}}
+        </div>
+
         <div class="backdropImage">
             <img data-ng-show="backdropImage" data-ng-src="{{backdropImage}}" class="img-responsive" />
         </div>

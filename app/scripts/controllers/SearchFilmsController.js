@@ -6,13 +6,30 @@
 			var keyFireLength = 4,
 				movieConfig,
 				chosenName,
-				firstLoadResults = true;
+				doError = function (err) {
 
-			movieDBConfig.getConfig().then(function (res) {
+					$scope.error = {};
 
-				movieConfig = res;
+					if(err.data) {
 
-			});
+						$scope.error.message = 'Error: ' + err.data.status_message;
+
+					} else {
+
+						$scope.error.message = 'Sorry, an error occurred.';
+
+					}
+				};
+
+			movieDBConfig.getConfig()
+				.then(function (res) {
+					movieConfig = res;
+				})
+				['catch'](function (err) {
+					doError(err);
+				});
+
+			$scope.searchTerm = '';
 
 			$scope.$watch("searchTerm", function (newValue) {
 
@@ -23,6 +40,10 @@
 				}
 
 			});
+
+			$scope.closeError = function () {
+				delete $scope.error;
+			};
 
 			$scope.formatKnownForString = function (arr) {
 
@@ -77,7 +98,7 @@
 			function loadPersonSearchData(term, cb) {
 
 				/**
-				 * Stubbing for CSS dev (would usually be in Jasmine unit test)
+				 * Stubbing (would usually be in Jasmine unit test)
 				 */
 				/*applyPersonSearchData({
 
@@ -113,10 +134,9 @@
 				personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
-
-						if(cb) {
-							cb();
-						}
+					})
+					['catch'](function (err) {
+						doError(err);
 					});
 
 			};
@@ -137,6 +157,9 @@
 
 			function loadPersonMovies (personId) {
 
+				/**
+				 * Stubbing (would usually be in Jasmine unit test)
+				 */
 				/*applyMovieData({
 					results: [
 						{
@@ -157,6 +180,9 @@
 				moviesWithCast.getResults(personId)
 					.then(function (response) {
 						applyMovieData(response);
+					})
+					['catch'](function (err) {
+						doError(err);
 					});
 
 			};
