@@ -52,7 +52,7 @@
 
                 <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
                     <ul>
-                        <li data-ng-repeat="movie in movies">
+                        <li data-ng-repeat="movie in movies | orderBy : 'release_date'">
                             <h1>{{movie.title}} <small class="releaseDate">Released: {{movie.release_date | date: 'MMMM d yyyy'}}</small></h1>
                         </li>
                     </ul>
