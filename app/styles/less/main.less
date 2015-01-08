@@ -1,3 +1,11 @@
+.clearFloat() {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
 * {
 
 	padding : 0;
@@ -8,8 +16,8 @@
 
 .close {
 	position : absolute;
-	right : 5px;
-	top : 5px;
+	right : 0;
+	top : 0;
 	display : block;
 	width : 38px;
 	height : 38px;
@@ -28,6 +36,7 @@
 	.searchTitle {
 		position : relative;
 		margin-top : 150px;
+		margin-bottom : 0;
 		padding : 20px 10px;
 		font-size : 30px;
 		color : #cc0066;
@@ -37,17 +46,26 @@
 
 	.searchPerson {
 		position : relative;
+		&:after {
+			.clearFloat;
+		}
 
 		input {
+			margin-top : 10px;
 			padding : 10px;
 			width : 100%;
 			font-size : 20px;
 			border-radius : 3px;
 			border : 1px solid #aaa;
 		}
+
+		.close {
+			right : 20px;
+			top : 16px;
+		}
 	}
 
-	.personResults {
+	.autocompleteList {
 		list-style-type : none;
 
 		li {
@@ -107,7 +125,7 @@
 				background-color : #fff;
 
 				+ li {
-					border-top : 3px dotted #cc0066;
+					border-top : 2px dotted #cc0066;
 				}
 
 			}
@@ -118,9 +136,9 @@
 
 	.credits {
 		display : block;
+		margin-left : 15px;
 		margin-bottom : 20px;
 		font-weight : normal;
-		text-align : right;
 		color : #000;
 
 		a {
@@ -140,10 +158,14 @@
 }
 
 .backdropImage {
-	position : absolute;
+	position : fixed;
 	left : 0;
 	right : 0;
 	text-align : center;
+
+	img {
+		display : inline-block;
+	}
 }
 
 @media(max-width: 767px) {
@@ -162,7 +184,7 @@
 
 	.container {
 
-		.personResults {
+		.autocompleteList {
 			z-index : 10;
 			position: absolute;
 			left: 15px;

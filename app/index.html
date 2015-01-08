@@ -25,23 +25,28 @@
         <div class="container">
 
             <h1 class="searchTitle">
-                Search Films
+                Search Movies
                 <small>by Actor name</small>
             </h1>
 
-            <div class="searchPerson">
-                <button class="close" data-ng-show="searchTerm" data-ng-click="cancelPerson()">X</button>
-                <input type="text" data-ng-model="searchTerm" class="searchPersonControl" />
+            <div class="searchPerson row">
+                <div class="col-sm-6">
+                    <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
+                    <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" placeholder="Actor" />
+                    <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
+                        <li data-ng-repeat="result in personResults">
+                            <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">
+                                {{result.name}}<br />
+                                <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    <button class="close" data-ng-show="movieSearchTerm" data-ng-click="cancelMovieSearch()">X</button>
+                    <input type="text" data-ng-show="movies.length" data-ng-model="movieSearchTerm" class="searchMovieControl" placeholder="Actor's movie" />
+                </div>
             </div>
-
-            <ul id="personResults" class="personResults" data-ng-show="personResults.length">
-                <li data-ng-repeat="result in personResults">
-                    <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">
-                        {{result.name}}<br />
-                        <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
-                    </button>
-                </li>
-            </ul>
 
             <div class="row">
                 <div data-ng-show="profileImage" class="col-sm-3">
@@ -52,7 +57,7 @@
 
                 <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
                     <ul>
-                        <li data-ng-repeat="movie in movies | orderBy : 'release_date'">
+                        <li data-ng-repeat="movie in movies | filter:movieSearchTerm | orderBy : 'release_date'">
                             <h1>{{movie.title}} <small class="releaseDate">Released: {{movie.release_date | date: 'MMMM d yyyy'}}</small></h1>
                         </li>
                     </ul>

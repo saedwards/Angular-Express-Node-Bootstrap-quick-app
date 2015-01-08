@@ -29,20 +29,23 @@
 					doError(err);
 				});
 
-			$scope.searchTerm = '';
+			$scope.actorSearchTerm = '';
+			$scope.movieSearchTerm = '';
 
-			$scope.$watch("searchTerm", function (newValue) {
+			$scope.$watch("actorSearchTerm", function (newValue) {
 
-				if(newValue.length > keyFireLength && $scope.searchTerm !== chosenName) {
+				if(newValue.length > keyFireLength && $scope.actorSearchTerm !== chosenName) {
 
-					loadPersonSearchData($scope.searchTerm);
+					loadPersonSearchData($scope.actorSearchTerm);
 
 				}
 
 			});
 
 			$scope.closeError = function () {
+
 				delete $scope.error;
+
 			};
 
 			$scope.formatKnownForString = function (arr) {
@@ -72,7 +75,7 @@
 				loadPersonMovies(personId);
 
 				chosenName = name;
-				$scope.searchTerm = name;
+				$scope.actorSearchTerm = name;
 
 				$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
 
@@ -81,11 +84,17 @@
 			$scope.cancelPerson = function () {
 
 				$scope.movies = [];
-				$scope.searchTerm = '';
+				$scope.actorSearchTerm = '';
 				$scope.profileImage = null;
 				$scope.backdropImage = null;
 
 				$('.searchPersonControl').focus();
+
+			};
+
+			$scope.cancelMovie = function () {
+
+				$scope.movieSearchTerm = '';
 
 			};
 
@@ -100,7 +109,7 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyPersonSearchData({
+				applyPersonSearchData({
 
 					results: [
 						{
@@ -129,15 +138,15 @@
 						}
 					]
 
-				});*/
+				});
 
-				personSearch.getResults(term)
+				/*personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});
+					});*/
 
 			};
 
@@ -160,7 +169,7 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyMovieData({
+				applyMovieData({
 					results: [
 						{
 							'title': 'Dumb and Dumber To',
@@ -175,15 +184,15 @@
 							'release_date': '1993-02-11'
 						}
 					]
-				});*/
+				});
 
-				moviesWithCast.getResults(personId)
+				/*moviesWithCast.getResults(personId)
 					.then(function (response) {
 						applyMovieData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});
+					});*/
 
 			};
 
@@ -192,9 +201,9 @@
 			 */
 			/*$scope.load = function () {
 
-				$scope.searchTerm = 'Bill Murray';
+				$scope.actorSearchTerm = 'Bill Murray';
 
-				loadPersonSearchData($scope.searchTerm);
+				loadPersonSearchData($scope.actorSearchTerm);
 
 			};*/
 
