@@ -14,6 +14,7 @@ var gulp = require('gulp'),
 	cleanCSS = new LessPluginCleanCSS({advanced: true});
 
 var paths = {
+	views: ['app/views/**/*.html'],
 	scripts: ['app/scripts/**/*.js'],
 	styles: ['app/styles/less/**/*.less'],
 	indexFile: ['app/index.html']
@@ -32,7 +33,15 @@ gulp.task('buildJS', ['clean'], function() {
 	return gulp.src(paths.scripts)
 		.pipe(concat('site.min.js'))
 		//.pipe(uglify())
-		.pipe(gulp.dest('public/dist'));
+		.pipe(gulp.dest('./public/dist'));
+
+});
+
+
+gulp.task('copyViews', ['clean'], function() {
+
+	return gulp.src(paths.views)
+		.pipe(gulp.dest('./public/views'));
 
 });
 
@@ -58,6 +67,7 @@ gulp.task('compileIndex', ['clean'], function() {
 
 gulp.task('watch', function() {
 
+	gulp.watch(paths.views, ['copyViews']);
 	gulp.watch(paths.scripts, ['buildJS']);
 	gulp.watch(paths.styles, ['buildCSS']);
 	gulp.watch(paths.indexFile, ['compileIndex']);
@@ -65,4 +75,4 @@ gulp.task('watch', function() {
 });
 
 
-gulp.task('default', ['buildJS', 'buildCSS', 'compileIndex']);
+gulp.task('default', ['copyViews', 'buildJS', 'buildCSS', 'compileIndex']);

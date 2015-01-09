@@ -2,16 +2,18 @@
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-    <title>Film Actor Search</title>
+    <title>Movie Actor Search</title>
     <meta name="viewport" content="width=device-width"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="dist/main.css"/>
 
 </head>
-<body data-ng-app="filmActorSearch" data-ng-controller="SearchFilms" data-ng-class="{withImage: backdropImage}" data-ng-init="load()">
+<body data-ng-app="filmActorSearch" data-ng-class="{withImage: backdropImage}" data-ng-init="load()">
 
-    <section>
+    <section data-ng-view></section>
+
+    <!--<div data-ng-controller="SearchFilms">
 
         <div data-ng-show="error" class="error ng-hide">
             <button class="close" data-ng-click="closeError()">X</button>
@@ -68,10 +70,11 @@
 
         </div>
 
-    </section>
+    </div>-->
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular-route.js"></script>
     <script src="dist/site.min.js"></script>
 
 </body>

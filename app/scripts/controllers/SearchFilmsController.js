@@ -92,7 +92,7 @@
 
 			};
 
-			$scope.cancelMovie = function () {
+			$scope.cancelMovieSearch = function () {
 
 				$scope.movieSearchTerm = '';
 
