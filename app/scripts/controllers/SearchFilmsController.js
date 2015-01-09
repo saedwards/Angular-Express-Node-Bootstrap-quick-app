@@ -1,6 +1,11 @@
 (function (app, angular) {
 
-	app.controller('SearchFilms', ['$scope', 'personSearch', 'moviesWithCast', 'movieDBConfig', '$timeout',
+	app.controller('SearchFilms', [
+		'$scope',
+		'personSearch',
+		'moviesWithCast',
+		'movieDBConfig',
+		'$timeout',
 		function($scope, personSearch, moviesWithCast, movieDBConfig, $timeout) {
 
 			var keyFireLength = 4,
@@ -81,6 +86,13 @@
 
 			};
 
+			$scope.chooseMovie = function (movie) {
+
+
+				//loadMovieDetails(movie.id);
+
+			};
+
 			$scope.cancelPerson = function () {
 
 				$scope.movies = [];
@@ -109,7 +121,7 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyPersonSearchData({
+				applyPersonSearchData({
 
 					results: [
 						{
@@ -138,15 +150,15 @@
 						}
 					]
 
-				});*/
+				});
 
-				personSearch.getResults(term)
+				/*personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});
+					});*/
 
 			};
 
@@ -169,7 +181,7 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyMovieData({
+				applyMovieData({
 					results: [
 						{
 							'title': 'Dumb and Dumber To',
@@ -184,15 +196,15 @@
 							'release_date': '1993-02-11'
 						}
 					]
-				});*/
+				});
 
-				moviesWithCast.getResults(personId)
+				/*moviesWithCast.getResults(personId)
 					.then(function (response) {
 						applyMovieData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});
+					});*/
 
 			};
 

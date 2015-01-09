@@ -12,7 +12,8 @@
   "dependencies": {
     "del": "^1.1.1",
     "express": "^4.10.6",
-    "gulp": "^3.8.10"
+    "gulp": "^3.8.10",
+    "routes": "^2.0.0"
   },
   "repository": {
     "type": "git",

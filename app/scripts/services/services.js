@@ -109,6 +109,44 @@
 
 			}];
 
-		}]);
+		}])
+		.provider("basicMovieInformation", function () {
+
+			var key = '';
+
+			this.setKey = function (string) {
+
+				key = string;
+
+			};
+
+			this.$get = ['$http', function ($http) {
+
+				function getResults(movieId) {
+
+					//http://api.themoviedb.org/3/discover/movie
+
+					//http://api.themoviedb.org/3/movie/id
+
+					var request = $http({
+						method: "get",
+						url: window.location.protocol + "//api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key
+					});
+
+					return ( request.then(handleSuccess) );
+
+				};
+
+				function handleSuccess(response) {
+					return ( response.data );
+				};
+
+				return {
+					getResults: getResults
+				};
+
+			}];
+
+		});
 
 }(angular));

@@ -125,7 +125,22 @@
 				background-color : #fff;
 
 				+ li {
-					border-top : 2px dotted #cc0066;
+					border-top : 2px dotted #ccc;
+				}
+
+				&:hover {
+					color : #fff;
+					cursor : pointer;
+					background-color : #cc0066;
+					border-color : transparent;
+
+					.releaseDate {
+						color : #fff;
+					}
+
+					+ li {
+						border-color : transparent;
+					}
 				}
 
 			}
@@ -136,7 +151,7 @@
 
 	.credits {
 		display : block;
-		margin-left : 15px;
+		margin-left : 10px;
 		margin-bottom : 20px;
 		font-weight : normal;
 		color : #000;
