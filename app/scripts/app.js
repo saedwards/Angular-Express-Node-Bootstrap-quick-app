@@ -39,7 +39,7 @@ app.config(['$routeProvider', '$locationProvider',
 				templateUrl: '../views/SearchFilms.html',
 				controller: 'SearchFilms'
 			}).
-			when('/movie', {
+			when('/movie/:id', {
 				templateUrl: '../views/MovieDetails.html',
 				controller: 'MovieDetails'
 			}).

@@ -2,37 +2,22 @@
 
 	app.controller('SearchFilms', [
 		'$scope',
+		'$rootScope',
 		'personSearch',
 		'moviesWithCast',
 		'movieDBConfig',
-		'$timeout',
-		function($scope, personSearch, moviesWithCast, movieDBConfig, $timeout) {
+		'$location',
+		'windowNotifications',
+		'changeBackdrop',
+		function($scope, $rootScope, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop) {
 
 			var keyFireLength = 4,
-				movieConfig,
 				chosenName,
 				doError = function (err) {
 
-					$scope.error = {};
+					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.')
 
-					if(err.data) {
-
-						$scope.error.message = 'Error: ' + err.data.status_message;
-
-					} else {
-
-						$scope.error.message = 'Sorry, an error occurred.';
-
-					}
 				};
-
-			movieDBConfig.getConfig()
-				.then(function (res) {
-					movieConfig = res;
-				})
-				['catch'](function (err) {
-					doError(err);
-				});
 
 			$scope.actorSearchTerm = '';
 			$scope.movieSearchTerm = '';
@@ -82,14 +67,21 @@
 				chosenName = name;
 				$scope.actorSearchTerm = name;
 
-				$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
+				console.log(movieDBConfig);
+
+				movieDBConfig.getConfig(function (movieConfig) {
+
+					console.log('config:', movieConfig);
+
+					$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
+
+				});
 
 			};
 
 			$scope.chooseMovie = function (movie) {
 
-
-				//loadMovieDetails(movie.id);
+				$location.path('/movie/' + movie.id);
 
 			};
 
@@ -98,7 +90,7 @@
 				$scope.movies = [];
 				$scope.actorSearchTerm = '';
 				$scope.profileImage = null;
-				$scope.backdropImage = null;
+				changeBackdrop(null);
 
 				$('.searchPersonControl').focus();
 
@@ -121,7 +113,7 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				applyPersonSearchData({
+				/*applyPersonSearchData({
 
 					results: [
 						{
@@ -150,15 +142,15 @@
 						}
 					]
 
-				});
+				});*/
 
-				/*personSearch.getResults(term)
+				personSearch.getResults(term)
 					.then(function (response) {
 						applyPersonSearchData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});*/
+					});
 
 			};
 
@@ -172,7 +164,7 @@
 					backdropPath = data.results[0].backdrop_path;
 				}
 
-				$scope.backdropImage = backdropPath ? movieConfig.images.base_url + movieConfig.images.backdrop_sizes[2] + backdropPath : null;
+				changeBackdrop(backdropPath);
 
 			};
 
@@ -181,30 +173,33 @@
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				applyMovieData({
+				/*applyMovieData({
 					results: [
 						{
+							'id': 123,
 							'title': 'Dumb and Dumber To',
 							'release_date': '2014-11-14'
 						},
 						{
+							'id': 512,
 							'title': 'Groundhog Day',
 							'release_date': '1993-02-11'
 						},
 						{
+							'id': 789,
 							'title': 'Another',
 							'release_date': '1993-02-11'
 						}
 					]
-				});
+				});*/
 
-				/*moviesWithCast.getResults(personId)
+				moviesWithCast.getResults(personId)
 					.then(function (response) {
 						applyMovieData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
-					});*/
+					});
 
 			};
 

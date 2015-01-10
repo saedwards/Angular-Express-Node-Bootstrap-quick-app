@@ -1,59 +1,46 @@
-<div data-ng-controller="SearchFilms">
+<div class="searchFilms container" data-ng-controller="SearchFilms">
 
-    <div data-ng-show="error" class="error ng-hide">
-        <button class="close" data-ng-click="closeError()">X</button>
-        {{error.message}}
+    <h1 class="searchTitle">
+        Search Movies
+        <small>by Actor name</small>
+    </h1>
+
+    <div class="searchPerson row">
+        <div class="col-sm-6">
+            <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
+            <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" placeholder="Actor" />
+            <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
+                <li data-ng-repeat="result in personResults">
+                    <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">
+                        {{result.name}}<br />
+                        <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
+                    </button>
+                </li>
+            </ul>
+        </div>
+        <div class="col-sm-6">
+            <button class="close" data-ng-show="movieSearchTerm" data-ng-click="cancelMovieSearch()">X</button>
+            <input type="text" data-ng-show="movies.length" data-ng-model="movieSearchTerm" class="searchMovieControl" placeholder="Actor's movie" />
+        </div>
     </div>
 
-    <div class="backdropImage">
-        <img data-ng-show="backdropImage" data-ng-src="{{backdropImage}}" class="img-responsive" />
-    </div>
-
-    <div class="container">
-
-        <h1 class="searchTitle">
-            Search Movies
-            <small>by Actor name</small>
-        </h1>
-
-        <div class="searchPerson row">
-            <div class="col-sm-6">
-                <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
-                <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" placeholder="Actor" />
-                <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
-                    <li data-ng-repeat="result in personResults">
-                        <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">
-                            {{result.name}}<br />
-                            <span data-ng-show="result.known_for.length" data-ng-bind="formatKnownForString(result.known_for)"></span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-sm-6">
-                <button class="close" data-ng-show="movieSearchTerm" data-ng-click="cancelMovieSearch()">X</button>
-                <input type="text" data-ng-show="movies.length" data-ng-model="movieSearchTerm" class="searchMovieControl" placeholder="Actor's movie" />
+    <div class="row">
+        <div data-ng-show="profileImage" class="col-sm-3">
+            <div class="profileImage">
+                <img data-ng-src="{{profileImage}}" class="img-responsive" />
             </div>
         </div>
 
-        <div class="row">
-            <div data-ng-show="profileImage" class="col-sm-3">
-                <div class="profileImage">
-                    <img data-ng-src="{{profileImage}}" class="img-responsive" />
-                </div>
-            </div>
-
-            <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
-                <ul>
-                    <li data-ng-repeat="movie in movies | filter:movieSearchTerm | orderBy : 'release_date'"
-                        data-ng-click="chooseMovie(movie)">
-                        <h1>{{movie.title}} <small class="releaseDate">Released: {{movie.release_date | date: 'MMMM d yyyy'}}</small></h1>
-                    </li>
-                </ul>
-            </div>
+        <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
+            <ul>
+                <li data-ng-repeat="movie in movies | filter:movieSearchTerm | orderBy : 'release_date'"
+                    data-ng-click="chooseMovie(movie)">
+                    <h1>{{movie.title}} <small class="releaseDate">Released: {{movie.release_date | date: 'MMMM d yyyy'}}</small></h1>
+                </li>
+            </ul>
         </div>
-
-        <strong class="credits">by <a target="_self" href="http://www.designsmoothie.com">Shane Edwards</a></strong>
-
     </div>
+
+    <strong class="credits">by <a target="_self" href="http://www.designsmoothie.com">Shane Edwards</a></strong>
 
 </div>

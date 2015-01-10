@@ -11,6 +11,15 @@
 </head>
 <body data-ng-app="filmActorSearch" data-ng-class="{withImage: backdropImage}" data-ng-init="load()">
 
+    <div data-ng-show="error" class="error ng-hide">
+        <button class="close" data-ng-click="$broadcast('clearMessages')">X</button>
+        {{error.message}}
+    </div>
+
+    <div class="backdropImage">
+        <img data-ng-show="backdropImage" data-ng-src="{{backdropImage}}" class="img-responsive" />
+    </div>
+
     <section data-ng-view></section>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
