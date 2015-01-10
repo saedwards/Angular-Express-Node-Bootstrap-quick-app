@@ -36,7 +36,7 @@
 					return isYouTube ? {
 
 						name: item.name,
-						path: $sce.trustAsResourceUrl('http://www.youtube.com/embed/' + item.key)
+						path: $sce.trustAsResourceUrl(window.location.protocol + '//www.youtube.com/embed/' + item.key)
 
 					} : false;
 
