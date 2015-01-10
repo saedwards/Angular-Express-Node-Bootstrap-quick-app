@@ -9,13 +9,14 @@
 		'$location',
 		'windowNotifications',
 		'changeBackdrop',
-		function($scope, $rootScope, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop) {
+		'utils',
+		function($scope, $rootScope, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop, utils) {
 
 			var keyFireLength = 4,
 				chosenName,
 				doError = function (err) {
 
-					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.')
+					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.');
 
 				};
 
@@ -40,20 +41,9 @@
 
 			$scope.formatKnownForString = function (arr) {
 
-				if(!arr || !arr.length) {
-					return;
-				}
-
-				var str = '',
-					arrLen = arr.length;
-
-				for(var i = 0; i < arrLen; i++) {
-
-					if(arr[i].title) {
-						str += str ? ', ' + arr[i].title : arr[i].title;
-					}
-
-				}
+				var str = utils.formatListLabel(arr.map(function (item) {
+					return item.title;
+				}));
 
 				return str ? 'Known for: ' + str : '';
 
@@ -62,16 +52,13 @@
 			$scope.chooseActor = function (personId, profilePath, name) {
 
 				$scope.personResults = [];
+
 				loadPersonMovies(personId);
 
 				chosenName = name;
 				$scope.actorSearchTerm = name;
 
-				console.log(movieDBConfig);
-
 				movieDBConfig.getConfig(function (movieConfig) {
-
-					console.log('config:', movieConfig);
 
 					$scope.profileImage = profilePath ? movieConfig.images.base_url + movieConfig.images.profile_sizes[1] + profilePath : null;
 

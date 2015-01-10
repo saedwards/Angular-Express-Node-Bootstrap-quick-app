@@ -1,7 +1,7 @@
 (function (angular) {
 
 	angular.module("services", [])
-		.provider("movieDBConfig", [function () {
+		.provider("movieDBConfig", function () {
 
 			var key = '',
 				configCache = null;
@@ -19,6 +19,7 @@
 					if(configCache) {
 
 						cb(configCache);
+						return;
 
 					}
 
@@ -44,8 +45,8 @@
 
 			}];
 
-		}])
-		.provider("personSearch", [function () {
+		})
+		.provider("personSearch", function () {
 
 			var key = '',
 				currentPerson = '';
@@ -83,8 +84,8 @@
 
 			}];
 
-		}])
-		.provider("moviesWithCast", [function () {
+		})
+		.provider("moviesWithCast", function () {
 
 			var key = '';
 
@@ -119,7 +120,7 @@
 
 			}];
 
-		}])
+		})
 		.provider("basicMovieInformation", function () {
 
 			var key = '';
@@ -139,6 +140,42 @@
 					var request = $http({
 						method: "get",
 						url: window.location.protocol + "//api.themoviedb.org/3/movie/" + movieId + "?api_key=" + key
+					});
+
+					return ( request.then(handleSuccess) );
+
+				};
+
+				function handleSuccess(response) {
+					return ( response.data );
+				};
+
+				return {
+					getResults: getResults
+				};
+
+			}];
+
+		})
+		.provider("movieVideos", function () {
+
+			var key = '';
+
+			this.setKey = function (string) {
+
+				key = string;
+
+			};
+
+			this.$get = ['$http', function ($http) {
+
+				function getResults(movieId) {
+
+					//http://api.themoviedb.org/3/movie/id/videos
+
+					var request = $http({
+						method: "get",
+						url: window.location.protocol + "//api.themoviedb.org/3/movie/" + movieId + "/videos?api_key=" + key
 					});
 
 					return ( request.then(handleSuccess) );
@@ -211,6 +248,34 @@
 					setBackDrop(path, data);
 
 				});
+
+			};
+
+		}])
+		.factory("utils", [function () {
+
+			return {
+
+				formatListLabel : function (arr) {
+
+					if(!arr || !arr.length) {
+						return;
+					}
+
+					var str = '',
+						arrLen = arr.length;
+
+					for(var i = 0; i < arrLen; i++) {
+
+						if(arr[i]) {
+							str += str ? ', ' + arr[i] : arr[i];
+						}
+
+					}
+
+					return str;
+
+				}
 
 			};
 

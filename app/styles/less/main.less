@@ -1,3 +1,5 @@
+// green: c6c200
+
 .clearFloat() {
 	content: ".";
 	display: block;
@@ -90,9 +92,46 @@
 	}
 
 	.tagline {
-		padding : 10px;
+		padding : 10px 15px;
 		color : #cc0066;
 		border-top : 2px dotted #aaa;
+	}
+
+	.video h2 {
+		margin-bottom : 0;
+		padding : 10px;
+		background-color : #fff;
+		opacity : 0.8;
+	}
+
+	.youtube-player {
+		width : 100%;
+		height : 200px;
+		margin-bottom : 20px;
+	}
+
+	@media(min-width: 768px) {
+
+		.youtube-player {
+			height : 300px;
+		}
+
+	}
+
+	@media(min-width: 992px) {
+
+		.youtube-player {
+			height : 350px;
+		}
+
+	}
+
+	@media(min-width: 1200px) {
+
+		.youtube-player {
+			height : 420px;
+		}
+
 	}
 
 	/**
@@ -197,23 +236,64 @@
 	 */
 	&.movieDetails {
 
+		h1 {
+			padding : 20px 15px;
+			margin-top : 50px;
+			margin-bottom : 0;
+			font-size : 30px;
+			background-color : #fff;
+			opacity : 0.8;
 
+			.voteAverage {
+				float : right;
+				margin-top : 3px;
+				color : #777;
+				font-weight : normal;
+				font-size : 25px;
+			}
+		}
+
+		.tagline {
+			margin-bottom : 20px;
+			background-color : #fff;
+			opacity : 0.8;
+		}
+
+		.genres {
+			color : #cc0066;
+		}
+
+		.overviewTitle {
+			color : #cc0066;
+		}
+
+		.poster img {
+			margin-top : 15px;
+		}
+
+		.homepage {
+			display : block;
+			margin-top : 10px;
+		}
+
+		.panel {
+			padding : 0 15px;
+			padding-bottom : 10px;
+			background-color : #fff;
+		}
 
 	}
 
 }
 
 .withImage {
-	background-color : #000;
+	background-color : #333;
 
 	.credits,
 	.credits a {
 		color : #fff;
 	}
 
-	.tagline {
-		border-color : #fff;
-	}
 }
 
 @media(max-width: 767px) {

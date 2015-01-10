@@ -1,19 +1,44 @@
-<div class="movieDetails container">
+<section class="movieDetails container">
 
     <h1>
         {{movie.title}}
+        <span class="voteAverage">Rating: {{movie.vote_average}}/10</span>
     </h1>
     <p class="tagline">{{movie.tagline}}</p>
 
-    <p>{{movie.overview}}</p>
-    <p>Vote average: {{movie.vote_average}}</p>
-    <p>backdrop path: {{movie.backdrop_path}}</p>
-    <p>homepage: {{movie.homepage}}</p>
-    <p>poster path: {{movie.poster_path}}</p>
-    <p>popularity: {{movie.popularity}}</p>
-    <p>genres</p>
-    <p>imdb id: {{movie.imdb_id}}</p>
-    <p>Revenue: {{movie.revenue}}</p>
-    <p>Runtime: {{movie.runtime}} mins</p>
+    <div class="row">
+        <div class="poster col-sm-4" data-ng-show="posterImage">
 
-</div>
+            <div class="panel">
+                <img data-ng-src="{{posterImage}}" class="img-responsive" />
+                <!--<a data-ng-show="{{movie.homepage}}" href="{{movie.homepage}}">
+                    <img data-ng-src="{{posterImage}}" class="img-responsive" />
+                </a>-->
+                <!--<a class="homepage" data-ng-show="{{movie.homepage}}" href="{{movie.homepage}}">Website: {{movie.homepage}}</a>-->
+            </div>
+
+        </div>
+        <div class="col-sm-8" data-ng-class="{'col-sm-8': posterImage, 'col-md-12': !posterImage}">
+
+            <div class="panel">
+
+                <h2 class="overviewTitle">Overview</h2>
+                <p>{{movie.overview}}</p>
+                <p class="genres">Genres: {{genres}}</p>
+                <p class="runtime">Runtime: {{movie.runtime}} mins</p>
+                <p>Movie revenue: {{movie.revenue | currency : '$'}}</p>
+                <p><a href="http://www.imdb.com/title/{{movie.imdb_id}}" target="_blank">View {{movie.title}} on IMBD</a></p>
+
+            </div>
+
+            <div class="video" data-ng-show="videos.length" data-ng-repeat="video in videos">
+
+                <h2 data-ng-show="video.name">{{video.name}}</h2>
+                <iframe class="youtube-player" type="text/html" data-ng-src="{{video.path}}" allowfullscreen frameborder="0"></iframe>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>

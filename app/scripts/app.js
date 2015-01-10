@@ -26,6 +26,12 @@ var app = angular.module('filmActorSearch', ['ngRoute', 'services'])
 
 		movieDBConfigProvider.setKey(moviesDBAPIKey);
 
+	}])
+
+	.config(["movieVideosProvider", "moviesDBAPIKey", function (movieVideosProvider, moviesDBAPIKey) {
+
+		movieVideosProvider.setKey(moviesDBAPIKey);
+
 	}]);
 
 
