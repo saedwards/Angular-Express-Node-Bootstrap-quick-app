@@ -58,6 +58,8 @@
 						$scope.posterImage = res.images.base_url + res.images.poster_sizes[3] + $scope.movie.poster_path;
 					}
 
+					$scope.homepage = $sce.trustAsResourceUrl($scope.movie.homepage);
+
 					changeBackdrop($scope.movie.backdrop_path);
 
 				});

@@ -10,11 +10,11 @@
         <div class="poster col-sm-4" data-ng-show="posterImage">
 
             <div class="panel">
-                <img data-ng-src="{{posterImage}}" class="img-responsive" />
-                <!--<a data-ng-show="{{movie.homepage}}" href="{{movie.homepage}}">
+                <img data-ng-show="!homepage" data-ng-src="{{posterImage}}" class="img-responsive" />
+                <a data-ng-show="homepage" href="{{homepage}}">
                     <img data-ng-src="{{posterImage}}" class="img-responsive" />
-                </a>-->
-                <!--<a class="homepage" data-ng-show="{{movie.homepage}}" href="{{movie.homepage}}">Website: {{movie.homepage}}</a>-->
+                </a>
+                <a class="homepage" data-ng-show="homepage" data-ng-href="{{homepage}}">Website: {{homepage}}</a>
             </div>
 
         </div>
@@ -27,7 +27,7 @@
                 <p class="genres">Genres: {{genres}}</p>
                 <p class="runtime">Runtime: {{movie.runtime}} mins</p>
                 <p>Movie revenue: {{movie.revenue | currency : '$'}}</p>
-                <p><a href="http://www.imdb.com/title/{{movie.imdb_id}}" target="_blank">View {{movie.title}} on IMBD</a></p>
+                <p><a data-ng-href="http://www.imdb.com/title/{{movie.imdb_id}}" target="_blank">View {{movie.title}} on IMBD</a></p>
 
             </div>
 
