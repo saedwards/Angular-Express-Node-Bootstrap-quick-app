@@ -1,4 +1,4 @@
-<section class="searchFilms container" data-ng-controller="SearchFilms">
+<section class="searchFilms container" data-ng-controller="SearchFilms" data-ng-class="{'full': movies.length}">
 
     <h1 class="searchTitle">
         Search Movies
@@ -6,7 +6,7 @@
     </h1>
 
     <div class="searchPerson row">
-        <div class="col-sm-6">
+        <div data-ng-class="{'col-sm-6': movies.length, 'col-sm-12': !movies.length}">
             <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
             <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" placeholder="Actor" />
             <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-md-12': !profileImage}">
+        <div class="movies" data-ng-class="{'col-sm-9': profileImage, 'col-sm-12': !profileImage}">
             <ul>
                 <li data-ng-repeat="movie in movies | filter:movieSearchTerm | orderBy : 'release_date'"
                     data-ng-click="chooseMovie(movie)">

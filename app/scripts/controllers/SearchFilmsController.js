@@ -3,6 +3,7 @@
 	app.controller('SearchFilms', [
 		'$scope',
 		'$rootScope',
+		'$timeout',
 		'personSearch',
 		'moviesWithCast',
 		'movieDBConfig',
@@ -10,7 +11,7 @@
 		'windowNotifications',
 		'changeBackdrop',
 		'utils',
-		function($scope, $rootScope, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop, utils) {
+		function($scope, $rootScope, $timeout, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop, utils) {
 
 			var keyFireLength = 4,
 				chosenName,
@@ -92,6 +93,10 @@
 			function applyPersonSearchData(data) {
 
 				$scope.personResults = data.results || [];
+
+				$timeout(function () {
+					$('#personResults li:first-child').addClass('active');
+				});
 
 			};
 
