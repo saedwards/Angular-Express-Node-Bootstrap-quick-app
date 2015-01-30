@@ -231,11 +231,16 @@
 			};
 
 		}])
-		.factory("changeBackdrop", ['$rootScope', 'movieDBConfig', function ($rootScope, movieDBConfig) {
+		.factory("changeBackdrop", ['$rootScope', '$timeout', 'movieDBConfig', function ($rootScope, $timeout, movieDBConfig) {
 
-			var setBackDrop = function (path, movieConfig) {
+			var doSet = function (path, movieConfig) {
 
 					$rootScope.backdropImage = path ? movieConfig.images.base_url + movieConfig.images.backdrop_sizes[2] + path : null;
+
+				},
+				setBackDrop = function (path, movieConfig) {
+
+					doSet(path, movieConfig);
 
 				};
 

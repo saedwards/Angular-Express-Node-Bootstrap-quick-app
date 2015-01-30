@@ -40,6 +40,15 @@
 
 	img {
 		display : inline-block;
+		transition: opacity .75s;
+
+		&.fadeIn {
+			opacity: 1;
+		}
+
+		&.fadeOut {
+			opacity: 0;
+		}
 	}
 }
 
@@ -281,6 +290,7 @@
 		.homepage {
 			display : block;
 			margin-top : 10px;
+			overflow : hidden;
 		}
 
 		.panel {
