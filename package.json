@@ -23,6 +23,8 @@
     "gulp-concat": "^2.4.3",
     "gulp-less": "^2.0.1",
     "gulp-uglify": "^1.0.2",
-    "less-plugin-clean-css": "^1.4.0"
+    "jasmine-node": "^1.14.5",
+    "less-plugin-clean-css": "^1.4.0",
+    "phantomjs": "^1.9.15"
   }
 }

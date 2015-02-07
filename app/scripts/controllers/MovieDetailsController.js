@@ -13,12 +13,18 @@
 		'movieVideos',
 		function ($scope, $routeParams, $location, $sce, movieDBConfig, utils, changeBackdrop, windowNotifications, basicMovieInformation, movieVideos) {
 
-			console.log($routeParams.id);
-
 			var movieId = parseInt($routeParams.id),
 				doError = function () {
 					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.')
 				};
+
+			$scope.movie = null;
+			$scope.videos = [];
+			$scope.genres = '';
+			$scope.posterImage = '';
+			$scope.homepage = '';
+
+			console.log('here');
 
 			if(movieId !== movieId) {
 

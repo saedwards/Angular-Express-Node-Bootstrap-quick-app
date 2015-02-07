@@ -11,7 +11,8 @@ var gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	less = require('gulp-less'),
 	LessPluginCleanCSS = require('less-plugin-clean-css'),
-	cleanCSS = new LessPluginCleanCSS({advanced: true});
+	cleanCSS = new LessPluginCleanCSS({advanced: true}),
+	karma = require('karma').server;
 
 var paths = {
 	views: ['app/views/**/*.html'],
@@ -65,7 +66,7 @@ gulp.task('compileIndex', ['clean'], function() {
 });
 
 
-gulp.task('watch', function() {
+gulp.task('dev', function() {
 
 	gulp.watch(paths.views, ['copyViews']);
 	gulp.watch(paths.scripts, ['buildJS']);
@@ -73,6 +74,16 @@ gulp.task('watch', function() {
 	gulp.watch(paths.indexFile, ['compileIndex']);
 
 });
+
+
+/*gulp.task('test', function (done) {
+
+	gulp.watch(karma.start({
+		configFile: __dirname + '/karma.conf.js',
+		singleRun: true
+	}, done));
+
+});*/
 
 
 gulp.task('default', ['copyViews', 'buildJS', 'buildCSS', 'compileIndex']);
