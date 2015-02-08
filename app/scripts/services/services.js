@@ -28,14 +28,14 @@
 						url: window.location.protocol + "//api.themoviedb.org/3/configuration?api_key=" + key
 					}).then(function (response) {
 
-							configCache = response.data;
-							cb(configCache);
+						configCache = response.data;
+						cb(configCache);
 
-						}, function (response) {
+					}, function (response) {
 
-							console.log('error');
+						console.log('error');
 
-						});
+					});
 
 				};
 

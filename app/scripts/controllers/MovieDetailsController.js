@@ -14,6 +14,7 @@
 		function ($scope, $routeParams, $location, $sce, movieDBConfig, utils, changeBackdrop, windowNotifications, basicMovieInformation, movieVideos) {
 
 			var movieId = parseInt($routeParams.id),
+				self = this,
 				doError = function () {
 					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.')
 				};
@@ -24,8 +25,6 @@
 			$scope.posterImage = '';
 			$scope.homepage = '';
 
-			console.log('here');
-
 			if(movieId !== movieId) {
 
 				$location.path('/404');
@@ -33,7 +32,7 @@
 
 			}
 
-			function applyMovieVideos(data) {
+			self.applyMovieVideos = function(data) {
 
 				$scope.videos = data.results.map(function(item) {
 
@@ -42,15 +41,16 @@
 					return isYouTube ? {
 
 						name: item.name,
-						path: $sce.trustAsResourceUrl(window.location.protocol + '//www.youtube.com/embed/' + item.key)
+						path: window.location.protocol + '//www.youtube.com/embed/' + item.key
+						//path: $sce.trustAsResourceUrl(window.location.protocol + '//www.youtube.com/embed/' + item.key)
 
 					} : false;
 
 				});
 
-			}
+			};
 
-			function applyMovieDetailsData(data) {
+			self.applyMovieDetailsData = function(data) {
 
 				$scope.movie = data;
 
@@ -64,7 +64,8 @@
 						$scope.posterImage = res.images.base_url + res.images.poster_sizes[3] + $scope.movie.poster_path;
 					}
 
-					$scope.homepage = $sce.trustAsResourceUrl($scope.movie.homepage);
+					//$scope.homepage = $sce.trustAsResourceUrl($scope.movie.homepage);
+					$scope.homepage = $scope.movie.homepage;
 
 					changeBackdrop($scope.movie.backdrop_path);
 
@@ -72,7 +73,7 @@
 
 			};
 
-			function loadMovieDetailsData(id) {
+			self.loadMovieDetailsData = function(id) {
 
 				/**
 				 * Simpson's movie stub
@@ -81,7 +82,7 @@
 
 				basicMovieInformation.getResults($routeParams.id)
 					.then(function (response) {
-						applyMovieDetailsData(response);
+						self.applyMovieDetailsData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
@@ -89,11 +90,11 @@
 
 			};
 
-			function loadMovieVideos(id) {
+			self.loadMovieVideos = function(id) {
 
 				movieVideos.getResults($routeParams.id)
 					.then(function (response) {
-						applyMovieVideos(response);
+						self.applyMovieVideos(response);
 					})
 					['catch'](function (err) {
 						doError(err);
@@ -101,8 +102,8 @@
 
 			};
 
-			loadMovieVideos(movieId);
-			loadMovieDetailsData(movieId);
+			self.loadMovieVideos(movieId);
+			self.loadMovieDetailsData(movieId);
 
 		}]);
 

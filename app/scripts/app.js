@@ -32,6 +32,16 @@ var app = angular.module('filmActorSearch', ['ngRoute', 'services'])
 
 		movieVideosProvider.setKey(moviesDBAPIKey);
 
+	}])
+	.config(["$sceDelegateProvider", function($sceDelegateProvider) {
+
+		$sceDelegateProvider.resourceUrlWhitelist([
+			// Allow same origin resource loads.
+			'self',
+			// Allow loading from our assets domain.  Notice the difference between * and **.
+			window.location.protocol + '//api.themoviedb.org/3/**',
+			window.location.protocol + '//www.youtube.com/**']);
+
 	}]);
 
 
