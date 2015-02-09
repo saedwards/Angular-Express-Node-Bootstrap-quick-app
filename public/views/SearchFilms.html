@@ -9,7 +9,7 @@
         <div data-ng-class="{'col-sm-6': movies.length, 'col-sm-12': !movies.length}">
 
             <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
-            <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" data-ng-keypress="actorSearchTermKeypress($event);" placeholder="Actor" />
+            <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" data-ng-keydown="actorSearchTermKeypress($event);" placeholder="Actor" />
             <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
                 <li data-ng-repeat="result in personResults">
                     <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">

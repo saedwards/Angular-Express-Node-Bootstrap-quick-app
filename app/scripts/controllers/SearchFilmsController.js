@@ -23,6 +23,7 @@
 
 			$scope.actorSearchTerm = '';
 			$scope.movieSearchTerm = '';
+			$scope.personResults = [];
 
 			$scope.$watch("actorSearchTerm", function (newValue) {
 
@@ -36,8 +37,26 @@
 
 			$scope.actorSearchTermKeypress = function (e) {
 
+				console.log(e);
+
+				var el;
+
 				if(e.keyCode === 13) {
+
 					loadPersonSearchData($scope.actorSearchTerm);
+
+				}
+
+				if(e.keyCode === 40 && $scope.personResults.length) {
+
+					el = $('#personResults li:first-child button');
+
+					//loadPersonSearchData($scope.actorSearchTerm);
+
+					//el.addClass('active');
+
+					el.focus();
+
 				}
 
 			};
@@ -103,8 +122,26 @@
 				$scope.personResults = data.results || [];
 
 				$timeout(function () {
-					$('#personResults li:first-child').addClass('active');
+					$('.personBtn').keydown(function (e) {
+
+						if(e.keyCode === 38) {
+
+							$(e.target).parent().prev().children('.personBtn').focus();
+
+						}
+
+						if(e.keyCode === 40 && $scope.personResults.length) {
+
+							$(e.target).parent().next().children('.personBtn').focus();
+
+						}
+
+					});
 				});
+
+				/*$timeout(function () {
+					$('#personResults li:first-child').addClass('active');
+				});*/
 
 			};
 
