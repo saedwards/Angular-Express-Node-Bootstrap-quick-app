@@ -3,9 +3,13 @@ describe('MovieDetailsController', function () {
 	var $scope,
 		routeParams,
 		$location,
-		$sce,
 		$controller,
 		$httpBackend,
+		utils,
+		changeBackdrop,
+		windowNotifications,
+		basicMovieInformation,
+		movieVideos,
 		videoData = function () {
 			return {
 				"id": 954,
@@ -42,7 +46,11 @@ describe('MovieDetailsController', function () {
 			$controller = $injector.get('$controller');
 			$httpBackend = $injector.get('$httpBackend');
 			$location = $injector.get('$location');
-			$sce = $injector.get('$sce');
+			utils = $injector.get('utils');
+			changeBackdrop = $injector.get('changeBackdrop');
+			windowNotifications = $injector.get('windowNotifications');
+			basicMovieInformation = $injector.get('basicMovieInformation');
+			movieVideos = $injector.get('movieVideos');
 
 			var movieDBConfig = {
 					getConfig: function (cb) {
@@ -66,15 +74,19 @@ describe('MovieDetailsController', function () {
 			$httpBackend.expectGET('http://api.themoviedb.org/3/movie/954?api_key=3b346f117a4f4fc787e8d7e4eeb73cd5');
 			$httpBackend.expectGET('http://api.themoviedb.org/3/configuration?api_key=3b346f117a4f4fc787e8d7e4eeb73cd5');
 
-			//$scope, $routeParams, $location, $sce, movieDBConfig, utils, changeBackdrop, windowNotifications, basicMovieInformation, movieVideos) {
+			//windowNotifications, basicMovieInformation, movieVideos) {
 
 			createController = function() {
 				return $controller('MovieDetails', {
 					'$scope' : $scope,
 					'$routeParams' : routeParams,
 					'$location' : $location,
-					'$sce' : $sce,
-					'movieDBConfig' : movieDBConfig
+					'movieDBConfig' : movieDBConfig,
+					'utils' : utils,
+					'changeBackdrop' : changeBackdrop,
+					'windowNotifications' : windowNotifications,
+					'basicMovieInformation' : basicMovieInformation,
+					'movieVideos' : movieVideos
 				});
 			};
 
@@ -106,11 +118,9 @@ describe('MovieDetailsController', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
-
-		expect(controller.applyMovieVideos).toBeDefined();
-
 		controller.applyMovieVideos(videoData());
 
+		expect(controller.applyMovieVideos).toBeDefined();
 		expect($scope.videos).toEqual([
 			{
 				name : 'Trailer 1',
@@ -124,11 +134,9 @@ describe('MovieDetailsController', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
-
-		expect(controller.applyMovieDetailsData).toBeDefined();
-
 		controller.applyMovieDetailsData(movieData());
 
+		expect(controller.applyMovieDetailsData).toBeDefined();
 		expect($scope.movie).toEqual(movieData());
 		expect($scope.genres).toEqual('Action, Adventure, Thriller');
 		expect($scope.posterImage).toEqual('http://image.tmdb.org/t/p/w342/1PVKS17pIBFsIhgFws2uagPDNLW.jpg');
@@ -140,17 +148,13 @@ describe('MovieDetailsController', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
-
 		controller.applyMovieDetailsData = jasmine.createSpy();
 
-		expect(controller.loadMovieDetailsData).toBeDefined();
-
 		$httpBackend.expectGET('http://api.themoviedb.org/3/movie/954?api_key=3b346f117a4f4fc787e8d7e4eeb73cd5');
-
 		controller.loadMovieDetailsData(954);
-
 		$httpBackend.flush();
 
+		expect(controller.loadMovieDetailsData).toBeDefined();
 		expect(controller.applyMovieDetailsData).toHaveBeenCalled();
 
 	});
@@ -159,17 +163,13 @@ describe('MovieDetailsController', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
-
 		controller.applyMovieVideos = jasmine.createSpy();
 
-		expect(controller.loadMovieVideos).toBeDefined();
-
 		$httpBackend.expectGET('http://api.themoviedb.org/3/movie/954/videos?api_key=3b346f117a4f4fc787e8d7e4eeb73cd5');
-
 		controller.loadMovieVideos(954);
-
 		$httpBackend.flush();
 
+		expect(controller.loadMovieVideos).toBeDefined();
 		expect(controller.applyMovieVideos).toHaveBeenCalled();
 
 	});

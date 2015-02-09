@@ -34,6 +34,14 @@
 
 			});
 
+			$scope.actorSearchTermKeypress = function (e) {
+
+				if(e.keyCode === 13) {
+					loadPersonSearchData($scope.actorSearchTerm);
+				}
+
+			};
+
 			$scope.closeError = function () {
 
 				delete $scope.error;

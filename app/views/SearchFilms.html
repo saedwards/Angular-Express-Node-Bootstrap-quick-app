@@ -7,8 +7,9 @@
 
     <div class="searchPerson row">
         <div data-ng-class="{'col-sm-6': movies.length, 'col-sm-12': !movies.length}">
+
             <button class="close" data-ng-show="actorSearchTerm" data-ng-click="cancelPerson()">X</button>
-            <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" placeholder="Actor" />
+            <input type="text" data-ng-model="actorSearchTerm" class="searchPersonControl" data-ng-keypress="actorSearchTermKeypress($event);" placeholder="Actor" />
             <ul id="personResults" class="autocompleteList" data-ng-show="personResults.length">
                 <li data-ng-repeat="result in personResults">
                     <button data-ng-click="chooseActor(result.id, result.profile_path, result.name)" class="personBtn">
@@ -17,14 +18,18 @@
                     </button>
                 </li>
             </ul>
+
         </div>
         <div class="col-sm-6">
+
             <button class="close" data-ng-show="movieSearchTerm" data-ng-click="cancelMovieSearch()">X</button>
             <input type="text" data-ng-show="movies.length" data-ng-model="movieSearchTerm" class="searchMovieControl" placeholder="Actor's movie" />
+
         </div>
     </div>
 
     <div class="row">
+
         <div data-ng-show="profileImage" class="col-sm-3">
             <div class="profileImage">
                 <img data-ng-src="{{profileImage}}" class="img-responsive" />
@@ -39,6 +44,7 @@
                 </li>
             </ul>
         </div>
+
     </div>
 
     <strong class="credits">by <a target="_self" href="http://www.designsmoothie.com">Shane Edwards</a></strong>

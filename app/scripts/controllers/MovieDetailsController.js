@@ -4,14 +4,13 @@
 		'$scope',
 		'$routeParams',
 		'$location',
-		'$sce',
 		'movieDBConfig',
 		'utils',
 		'changeBackdrop',
 		'windowNotifications',
 		'basicMovieInformation',
 		'movieVideos',
-		function ($scope, $routeParams, $location, $sce, movieDBConfig, utils, changeBackdrop, windowNotifications, basicMovieInformation, movieVideos) {
+		function ($scope, $routeParams, $location, movieDBConfig, utils, changeBackdrop, windowNotifications, basicMovieInformation, movieVideos) {
 
 			var movieId = parseInt($routeParams.id),
 				self = this,
