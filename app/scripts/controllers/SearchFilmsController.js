@@ -37,8 +37,6 @@
 
 			$scope.actorSearchTermKeypress = function (e) {
 
-				console.log(e);
-
 				var el;
 
 				if(e.keyCode === 13) {
@@ -138,10 +136,6 @@
 
 					});
 				});
-
-				/*$timeout(function () {
-					$('#personResults li:first-child').addClass('active');
-				});*/
 
 			};
 
