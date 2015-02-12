@@ -1,5 +1,7 @@
 (function (angular) {
 
+	"use strict";
+
 	angular.module("services", [])
 		.provider("movieDBConfig", function () {
 
@@ -31,9 +33,9 @@
 						configCache = response.data;
 						cb(configCache);
 
-					}, function (response) {
+					}, function () {
 
-						console.log('error');
+						console.log('error loading config.');
 
 					});
 

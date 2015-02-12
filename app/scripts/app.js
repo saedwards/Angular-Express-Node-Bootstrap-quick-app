@@ -1,71 +1,75 @@
-'use strict';
 
-var app = angular.module('filmActorSearch', ['ngRoute', 'services'])
+var app = angular.module('filmActorSearch', ['ngRoute', 'services']);
 
-	.constant("moviesDBAPIKey", "3b346f117a4f4fc787e8d7e4eeb73cd5")
+(function (app) {
 
-	.config(["personSearchProvider", "moviesDBAPIKey", function (personSearchProvider, moviesDBAPIKey) {
+	'use strict';
 
-		personSearchProvider.setKey(moviesDBAPIKey);
+	app.constant("moviesDBAPIKey", "3b346f117a4f4fc787e8d7e4eeb73cd5")
 
-	}])
+		.config(["personSearchProvider", "moviesDBAPIKey", function (personSearchProvider, moviesDBAPIKey) {
 
-	.config(["moviesWithCastProvider", "moviesDBAPIKey", function (moviesWithCastProvider, moviesDBAPIKey) {
+			personSearchProvider.setKey(moviesDBAPIKey);
 
-		moviesWithCastProvider.setKey(moviesDBAPIKey);
+		}])
 
-	}])
+		.config(["moviesWithCastProvider", "moviesDBAPIKey", function (moviesWithCastProvider, moviesDBAPIKey) {
 
-	.config(["basicMovieInformationProvider", "moviesDBAPIKey", function (basicMovieInformationProvider, moviesDBAPIKey) {
+			moviesWithCastProvider.setKey(moviesDBAPIKey);
 
-		basicMovieInformationProvider.setKey(moviesDBAPIKey);
+		}])
 
-	}])
+		.config(["basicMovieInformationProvider", "moviesDBAPIKey", function (basicMovieInformationProvider, moviesDBAPIKey) {
 
-	.config(["movieDBConfigProvider", "moviesDBAPIKey", function (movieDBConfigProvider, moviesDBAPIKey) {
+			basicMovieInformationProvider.setKey(moviesDBAPIKey);
 
-		movieDBConfigProvider.setKey(moviesDBAPIKey);
+		}])
 
-	}])
+		.config(["movieDBConfigProvider", "moviesDBAPIKey", function (movieDBConfigProvider, moviesDBAPIKey) {
 
-	.config(["movieVideosProvider", "moviesDBAPIKey", function (movieVideosProvider, moviesDBAPIKey) {
+			movieDBConfigProvider.setKey(moviesDBAPIKey);
 
-		movieVideosProvider.setKey(moviesDBAPIKey);
+		}])
 
-	}])
-	.config(["$sceDelegateProvider", function($sceDelegateProvider) {
+		.config(["movieVideosProvider", "moviesDBAPIKey", function (movieVideosProvider, moviesDBAPIKey) {
 
-		$sceDelegateProvider.resourceUrlWhitelist([
-			// Allow same origin resource loads.
-			'self',
-			// Allow loading from our assets domain.  Notice the difference between * and **.
-			window.location.protocol + '//api.themoviedb.org/3/**',
-			window.location.protocol + '//www.youtube.com/**']);
+			movieVideosProvider.setKey(moviesDBAPIKey);
 
-	}]);
+		}])
+		.config(["$sceDelegateProvider", function($sceDelegateProvider) {
 
+			$sceDelegateProvider.resourceUrlWhitelist([
+				// Allow same origin resource loads.
+				'self',
+				// Allow loading from our assets domain.  Notice the difference between * and **.
+				window.location.protocol + '//api.themoviedb.org/3/**',
+				window.location.protocol + '//www.youtube.com/**']);
 
-/**
- * Routes
- */
-app.config(['$routeProvider', '$locationProvider',
-	function($routeProvider, $locationProvider) {
-		$routeProvider.
-			when('/', {
-				templateUrl: '../views/SearchFilms.html',
-				controller: 'SearchFilms'
-			}).
-			when('/movie/:id', {
-				templateUrl: '../views/MovieDetails.html',
-				controller: 'MovieDetails'
-			}).
-			when('/404', {
-				templateUrl: '../views/404.html'//,
-				//controller: 'MovieDetails'
-			}).
-			otherwise({
-				redirectTo: '/404'
-			});
+		}])
 
-		$locationProvider.html5Mode(true);
-	}]);
+		/**
+		 * Routes
+		 */
+		.config(['$routeProvider', '$locationProvider',
+			function($routeProvider, $locationProvider) {
+				$routeProvider.
+					when('/', {
+						templateUrl: '../views/SearchFilms.html',
+						controller: 'SearchFilms'
+					}).
+					when('/movie/:id', {
+						templateUrl: '../views/MovieDetails.html',
+						controller: 'MovieDetails'
+					}).
+					when('/404', {
+						templateUrl: '../views/404.html'//,
+						//controller: 'MovieDetails'
+					}).
+					otherwise({
+						redirectTo: '/404'
+					});
+
+				$locationProvider.html5Mode(true);
+			}]);
+
+}(app));

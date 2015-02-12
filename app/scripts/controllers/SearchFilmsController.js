@@ -1,4 +1,7 @@
-(function (app, angular) {
+/*jshint laxcomma:true, asi:true */
+(function (app) {
+
+	"use strict";
 
 	app.controller('SearchFilms', [
 		'$scope',
@@ -141,7 +144,7 @@
 
 			};
 
-			function loadPersonSearchData(term, cb) {
+			function loadPersonSearchData(term) {
 
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
@@ -236,17 +239,6 @@
 
 			};
 
-			/**
-			 * Choose default profile.
-			 */
-			/*$scope.load = function () {
-
-				$scope.actorSearchTerm = 'Bill Murray';
-
-				loadPersonSearchData($scope.actorSearchTerm);
-
-			};*/
-
 		}]);
 
-}(app, angular));
+}(app));

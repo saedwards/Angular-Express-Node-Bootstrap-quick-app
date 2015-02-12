@@ -1,5 +1,7 @@
 (function (app) {
 
+	"use strict";
+
 	app.controller('MovieDetails', [
 		'$scope',
 		'$routeParams',
@@ -14,8 +16,8 @@
 
 			var movieId = parseInt($routeParams.id),
 				self = this,
-				doError = function () {
-					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.')
+				doError = function (err) {
+					windowNotifications.addMessage(err.data ? 'Error: ' + err.data.status_message : 'Sorry, an error occurred.');
 				};
 
 			$scope.movie = null;
@@ -41,7 +43,6 @@
 
 						name: item.name,
 						path: window.location.protocol + '//www.youtube.com/embed/' + item.key
-						//path: $sce.trustAsResourceUrl(window.location.protocol + '//www.youtube.com/embed/' + item.key)
 
 					} : false;
 
@@ -63,7 +64,6 @@
 						$scope.posterImage = res.images.base_url + res.images.poster_sizes[3] + $scope.movie.poster_path;
 					}
 
-					//$scope.homepage = $sce.trustAsResourceUrl($scope.movie.homepage);
 					$scope.homepage = $scope.movie.homepage;
 
 					changeBackdrop($scope.movie.backdrop_path);
@@ -72,7 +72,7 @@
 
 			};
 
-			self.loadMovieDetailsData = function(id) {
+			self.loadMovieDetailsData = function() {
 
 				/**
 				 * Simpson's movie stub
@@ -89,7 +89,7 @@
 
 			};
 
-			self.loadMovieVideos = function(id) {
+			self.loadMovieVideos = function() {
 
 				movieVideos.getResults($routeParams.id)
 					.then(function (response) {
