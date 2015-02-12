@@ -35,6 +35,13 @@
 
 			});
 
+			$scope.setActorSearchTerm = function (name) {
+
+				chosenName = name;
+				$scope.actorSearchTerm = name;
+
+			};
+
 			$scope.actorSearchTermKeypress = function (e) {
 
 				var el;
@@ -48,11 +55,6 @@
 				if(e.keyCode === 40 && $scope.personResults.length) {
 
 					el = $('#personResults li:first-child button');
-
-					//loadPersonSearchData($scope.actorSearchTerm);
-
-					//el.addClass('active');
-
 					el.focus();
 
 				}

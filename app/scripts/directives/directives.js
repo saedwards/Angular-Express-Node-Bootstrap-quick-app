@@ -6,11 +6,26 @@ app.directive('imageonload', function() {
 		},
 		link: function($scope, element, attrs) {
 			element.bind('load', function() {
-
 				$scope.imageonload();
-				/*$scope.fadeOutBackdropImage = false;
-				$scope.fadeIn = true;*/
 			});
 		}
 	};
 });
+
+app.directive('onFocus', ['$parse', function($parse) {
+	return {
+		link: function($scope, element, attr) {
+			var fn = $parse(attr['onFocus']);
+			element.bind('focus', function(event) {
+				if(!$scope.$$phase) {
+					$scope.$apply(function () {
+						fn($scope, {$event: event});
+					});
+				}
+				else {
+					fn($scope, {$event: event});
+				}
+			});
+		}
+	}
+}]);
