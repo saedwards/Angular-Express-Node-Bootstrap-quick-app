@@ -42,6 +42,12 @@ describe('MovieDetailsController', function () {
 
 		inject(function ($injector) {
 
+			var movieDBConfig = {
+				getConfig: function (cb) {
+					cb(configData());
+				}
+			};
+
 			$scope = {};
 			routeParams = {
 				id: 954
@@ -54,12 +60,6 @@ describe('MovieDetailsController', function () {
 			windowNotifications = $injector.get('windowNotifications');
 			basicMovieInformation = $injector.get('basicMovieInformation');
 			movieVideos = $injector.get('movieVideos');
-
-			var movieDBConfig = {
-					getConfig: function (cb) {
-						cb(configData());
-					}
-				};
 
 			$httpBackend
 				.when('GET', 'http://api.themoviedb.org/3/movie/954/videos?api_key=3b346f117a4f4fc787e8d7e4eeb73cd5')
@@ -118,7 +118,7 @@ describe('MovieDetailsController', function () {
 
 	});
 
-	it('applyMovieVideos populates $scope.videos with correct data.', function () {
+	it('applyMovieVideos() populates $scope.videos with correct data.', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
@@ -134,7 +134,7 @@ describe('MovieDetailsController', function () {
 
 	});
 
-	it('applyMovieDetailsData populates $scope properties with correct data.', function () {
+	it('applyMovieDetailsData() populates $scope properties with correct data.', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
@@ -148,7 +148,7 @@ describe('MovieDetailsController', function () {
 
 	});
 
-	it('loadMovieDetailsData makes a call for movie details data', function () {
+	it('loadMovieDetailsData() makes a call for movie details data', function () {
 
 		var controller = createController();
 		$httpBackend.flush();
@@ -163,7 +163,7 @@ describe('MovieDetailsController', function () {
 
 	});
 
-	it('loadMovieVideos retrieves correct response data', function () {
+	it('loadMovieVideos() retrieves correct response data', function () {
 
 		var controller = createController();
 		$httpBackend.flush();

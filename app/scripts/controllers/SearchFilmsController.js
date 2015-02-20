@@ -1,4 +1,3 @@
-/*jshint laxcomma:true, asi:true */
 (function (app) {
 
 	"use strict";
@@ -16,7 +15,8 @@
 		'utils',
 		function($scope, $rootScope, $timeout, personSearch, moviesWithCast, movieDBConfig, $location, windowNotifications, changeBackdrop, utils) {
 
-			var keyFireLength = 4,
+			var self = this,
+				keyFireLength = 4,
 				chosenName,
 				doError = function (err) {
 
@@ -27,12 +27,13 @@
 			$scope.actorSearchTerm = '';
 			$scope.movieSearchTerm = '';
 			$scope.personResults = [];
+			$scope.profileImage = '';
 
 			$scope.$watch("actorSearchTerm", function (newValue) {
 
 				if(newValue.length > keyFireLength && $scope.actorSearchTerm !== chosenName) {
 
-					loadPersonSearchData($scope.actorSearchTerm);
+					self.loadPersonSearchData($scope.actorSearchTerm);
 
 				}
 
@@ -51,7 +52,7 @@
 
 				if(e.keyCode === 13) {
 
-					loadPersonSearchData($scope.actorSearchTerm);
+					self.loadPersonSearchData($scope.actorSearchTerm);
 
 				}
 
@@ -84,7 +85,7 @@
 
 				$scope.personResults = [];
 
-				loadPersonMovies(personId);
+				self.loadPersonMovies(personId);
 
 				chosenName = name;
 				$scope.actorSearchTerm = name;
@@ -120,7 +121,7 @@
 
 			};
 
-			function applyPersonSearchData(data) {
+			self.applyPersonSearchData = function (data) {
 
 				$scope.personResults = data.results || [];
 
@@ -144,12 +145,12 @@
 
 			};
 
-			function loadPersonSearchData(term) {
+			self.loadPersonSearchData = function (term) {
 
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyPersonSearchData({
+				/*self.applyPersonSearchData({
 
 					results: [
 						{
@@ -162,7 +163,8 @@
 								{
 									title: 'Groundhog Day'
 								}
-							]
+							],
+							'profile_path': '/eb58HuFIrxS0zUmbmW4d8YXTbje.jpg'
 						},
 						{
 							'name': 'Billy Murray',
@@ -174,7 +176,8 @@
 								{
 									title: 'One in the chamber'
 								}
-							]
+							],
+							'profile_path': '/eb58HuFIrxS0zUmbmW4d8YXTbje.jpg'
 						}
 					]
 
@@ -182,7 +185,7 @@
 
 				personSearch.getResults(term)
 					.then(function (response) {
-						applyPersonSearchData(response);
+						self.applyPersonSearchData(response);
 					})
 					['catch'](function (err) {
 						doError(err);
@@ -190,7 +193,7 @@
 
 			};
 
-			function applyMovieData (data) {
+			self.applyMovieData = function (data) {
 
 				var backdropPath;
 
@@ -204,12 +207,12 @@
 
 			};
 
-			function loadPersonMovies (personId) {
+			self.loadPersonMovies = function (personId) {
 
 				/**
 				 * Stubbing (would usually be in Jasmine unit test)
 				 */
-				/*applyMovieData({
+				/*self.applyMovieData({
 					results: [
 						{
 							'id': 123,
@@ -231,7 +234,7 @@
 
 				moviesWithCast.getResults(personId)
 					.then(function (response) {
-						applyMovieData(response);
+						self.applyMovieData(response);
 					})
 					['catch'](function (err) {
 						doError(err);

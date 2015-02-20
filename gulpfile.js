@@ -15,6 +15,7 @@ var gulp = require('gulp'),
 	karma = require('karma').server;
 
 var paths = {
+	images: ['app/img/*'],
 	views: ['app/views/**/*.html'],
 	scripts: ['app/scripts/**/*.js'],
 	styles: ['app/styles/less/**/*.less'],
@@ -35,6 +36,14 @@ gulp.task('buildJS', ['clean'], function() {
 		.pipe(concat('site.min.js'))
 		//.pipe(uglify())
 		.pipe(gulp.dest('./public/dist'));
+
+});
+
+
+gulp.task('copyImages', function() {
+
+	return gulp.src(paths.images)
+		.pipe(gulp.dest('./public/img'));
 
 });
 
@@ -68,6 +77,7 @@ gulp.task('compileIndex', ['clean'], function() {
 
 gulp.task('dev', function() {
 
+	gulp.watch(paths.images, ['copyImages']);
 	gulp.watch(paths.views, ['copyViews']);
 	gulp.watch(paths.scripts, ['buildJS']);
 	gulp.watch(paths.styles, ['buildCSS']);
@@ -86,4 +96,4 @@ gulp.task('dev', function() {
 });*/
 
 
-gulp.task('default', ['copyViews', 'buildJS', 'buildCSS', 'compileIndex']);
+gulp.task('default', ['copyImages', 'copyViews', 'buildJS', 'buildCSS', 'compileIndex']);
